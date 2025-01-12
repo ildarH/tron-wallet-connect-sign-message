@@ -5,7 +5,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), nodePolyfills()],
-  base: '/tron-wallet-connector/',
+  base: '/tron-wallet-connect-sign-message/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
