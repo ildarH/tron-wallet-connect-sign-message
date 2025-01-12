@@ -6,7 +6,7 @@ A React application demonstrating message signing and verification with TRON blo
 
 - Connect TRON wallet using WalletConnect v2
 - Sign messages with connected wallet
-- Verify signed messages
+- Verify signed messages (compatible with TronScan v1 verification)
 - Copy wallet address and signatures
 - Test mode for previewing verification states
 
@@ -14,8 +14,6 @@ A React application demonstrating message signing and verification with TRON blo
 
 1. Clone the repository
 2. Install dependencies:
-```
-
 3. Create `.env` file with required variables (see `.env.example`):
 ```bash
 VITE_PROJECT_ID=your_walletconnect_project_id
@@ -33,6 +31,26 @@ The message verification process is implemented in `src/utils/messageHandler.ts`
 - Message formatting
 - Signature validation
 - TRON-specific verification logic
+
+The verification algorithm is identical to the one used on [TronScan Verify Signature Tool v1](https://tronscan.org/#/tools/verify-sign). Note that TronWeb currently doesn't support v2 verification format.
+
+## TronWeb Integration
+
+The project uses TronWeb 6.0.0 (latest version) for TRON blockchain interaction. Here's a basic example of TronWeb initialization:
+
+```typescript
+const tronWeb = new TronWeb({
+    fullHost: "https://api.trongrid.io",
+    headers: { "TRON-PRO-API-KEY": 'your-api-key' }
+});
+
+// Example of message verification
+const isVerified = await tronWeb.trx.verifyMessage(
+    hexMessage,
+    signature,
+    address
+);
+```
 
 ## Environment Variables
 
@@ -59,7 +77,7 @@ npm run deploy
 - TypeScript
 - Vite
 - WalletConnect v2
-- TRON Web
+- TronWeb 6.0.0
 - GitHub Pages
 
 ## License
